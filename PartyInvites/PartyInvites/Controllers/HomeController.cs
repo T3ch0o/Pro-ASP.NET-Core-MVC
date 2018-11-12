@@ -3,6 +3,7 @@
     using System;
 
     using Microsoft.AspNetCore.Mvc;
+    using PartyInvites.Models;
 
     public class HomeController : Controller
     {
@@ -13,9 +14,17 @@
             return View();
         }
 
+        [HttpGet]
         public ViewResult RsvpForm()
         {
             return View();
+        }
+
+        [HttpPost]
+        public ViewResult RsvpForm(GuestResponse guestResponse)
+        {
+            Repository.AddResponse(guestResponse);
+            return View("Thanks", guestResponse);
         }
     }
 }
