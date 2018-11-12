@@ -1,0 +1,43 @@
+﻿@using System.Security.Cryptography
+@model IEnumerable<PartyInvites.Models.GuestResponse>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width"/>
+    <title>Responses</title>
+</head>
+<body>
+<h2>Here is the list of people attending the party</h2>
+    @if (Model.Any())
+    {
+        <table>
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (GuestResponse response in Model)
+            {
+                <tr>
+                    <td>@response.Name</td>
+                    <td>@response.Email</td>
+                    <td>@response.Phone</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <h3>No members coming <a asp-action="RsvpForm">invite some</a>.</h3>
+    }
+</body>
+</html>
