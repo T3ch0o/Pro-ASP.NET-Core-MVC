@@ -7,13 +7,13 @@ Layout = null;
 <head>
     <meta name="viewport" content="width=device-width"/>
     <title>Index</title>
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css"/>
 </head>
 <body>
-    <div>
-        @ViewBag.Greeting World (from the view)
-        <p>We're going to have an exciting party.</p>
-        <p>(To do: sell it better. Add pictures or something.)</p>
-        <a asp-action="RsvpForm">RSVP Now</a>
-    </div>
+    <main class="text-center">
+        <h1>We're going to have an exciting party.</h1>
+        <h3>And you are invited</h3>
+        <a class="btn btn-primary" asp-action="RsvpForm">RSVP Now</a>
+    </main>
 </body>
 </html>
