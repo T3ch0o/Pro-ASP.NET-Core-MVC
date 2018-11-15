@@ -2,24 +2,31 @@
 {
     public class Product
     {
+        public Product(bool inStock)
+        {
+            InStock = inStock;
+        }
+
         public string Name { get; set; }
 
         public string Category { get; set; } = "Water Sports";
 
         public Product Related { get; set; }
 
+        public bool InStock { get; }
+
         public decimal? Price { get; set; }
 
         public static Product[] GetProducts()
         {
-            Product kayak = new Product
+            Product kayak = new Product(false)
             {
                 Name = "Kayak",
                 Category = "Water Craft",
                 Price = 275M
             };
 
-            Product lifejacket = new Product
+            Product lifejacket = new Product(false)
             {
                 Name = "Lifejacket",
                 Price = 48.95M
