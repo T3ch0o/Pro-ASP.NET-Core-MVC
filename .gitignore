@@ -262,3 +262,9 @@ __pycache__/
 
 # ASP.NET Core static libraries
 lib/
+*.svg
+*.DS_Store
+*.sln
+*.min.js
+*.min.css
+**/Data/Migrations
