@@ -2,9 +2,9 @@
 {
     public class Product
     {
-        public Product(bool inStock)
+        public Product(bool stock = true)
         {
-            InStock = inStock;
+            InStock = stock;
         }
 
         public string Name { get; set; }
@@ -26,7 +26,7 @@
                 Price = 275M
             };
 
-            Product lifejacket = new Product(false)
+            Product lifejacket = new Product
             {
                 Name = "Lifejacket",
                 Price = 48.95M
