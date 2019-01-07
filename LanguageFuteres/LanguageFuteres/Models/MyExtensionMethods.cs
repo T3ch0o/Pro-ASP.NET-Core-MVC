@@ -1,5 +1,6 @@
 ﻿namespace LanguageFeatures.Models
 {
+    using System;
     using System.Collections.Generic;
 
     public static class MyExtensionMethods
@@ -32,6 +33,17 @@
             foreach (Product product in products)
             {
                 if (product?.Name?[0] == firstLetter)
+                {
+                    yield return product;
+                }
+            }
+        }
+
+        public static IEnumerable<Product> Filter(this IEnumerable<Product> products, Func<Product, bool> selector)
+        {
+            foreach (Product product in products)
+            {
+                if (selector(product))
                 {
                     yield return product;
                 }
