@@ -1,6 +1,7 @@
 ﻿namespace LanguageFeatures.Controllers
 {
     using System.Collections.Generic;
+    using System.Threading.Tasks;
 
     using LanguageFeatures.Models;
 
@@ -17,7 +18,7 @@
                 string name = p?.Name ?? "<No name>";
                 decimal? price = p?.Price ?? 0;
                 string relatedName = p?.Related?.Name ?? "<None>";
-                results.Add($"Name: {name}, Price: {price}, Related: {relatedName}");
+                results.Add($"{nameof(p.Name)}: {name}, {nameof(p.Price)}: {price}, {nameof(p.Related)}: {relatedName}");
             }
 
             return View(results);
@@ -55,6 +56,13 @@
                                                   .TotalPrices();
 
             return View("Index", new [] { $"Price Total: {priceFilterTotal:C2}", $"Name Total: {nameFilterTotal:C2}" });
+        }
+
+        public async Task<ViewResult> ContentLength()
+        {
+            long? length = await MyAsyncMethods.GetPathLengthAsync();
+
+            return View("Index", new [] { $"Length: {length}" });
         }
     }
 }
