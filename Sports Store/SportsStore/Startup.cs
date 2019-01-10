@@ -4,10 +4,14 @@
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.DependencyInjection;
 
+    using SportsStore.Services;
+    using SportsStore.Services.Interfaces;
+
     public class Startup
     {
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddTransient<IProductService, ProductService>();
             services.AddMvc();
         }
 
@@ -22,7 +26,9 @@
             app.UseStaticFiles();
             app.UseMvc(routes =>
             {
-
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Product}/{action=List}/{id?}");
             });
         }
     }
