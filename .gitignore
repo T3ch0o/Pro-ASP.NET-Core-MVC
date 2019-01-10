@@ -268,3 +268,5 @@ lib/
 *.min.js
 *.min.css
 **/Data/Migrations
+**/Razor
+**/WorkingWithVisualStudio
