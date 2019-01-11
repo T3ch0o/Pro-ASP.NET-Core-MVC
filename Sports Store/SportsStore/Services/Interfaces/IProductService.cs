@@ -6,6 +6,6 @@
 
     public interface IProductService
     {
-        IQueryable<Product> GetAll { get; }
+        IQueryable<Product> GetAll();
     }
 }
