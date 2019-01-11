@@ -7,6 +7,7 @@
     using Microsoft.Extensions.DependencyInjection;
 
     using SportsStore.Data;
+    using SportsStore.Middlewares;
     using SportsStore.Services;
     using SportsStore.Services.Interfaces;
 
@@ -44,6 +45,8 @@
                     name: "default",
                     template: "{controller=Product}/{action=List}/{id?}");
             });
+
+            app.UseSeedData();
         }
     }
 }
