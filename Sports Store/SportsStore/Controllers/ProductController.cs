@@ -6,6 +6,7 @@
     using Microsoft.AspNetCore.Mvc;
 
     using SportsStore.Models;
+    using SportsStore.Models.ViewModels;
     using SportsStore.Services.Interfaces;
 
     public class ProductController : Controller
@@ -21,12 +22,23 @@
         {
             const int pageSize = 4;
 
-            IEnumerable<Product> products = _productService.GetAll()
-                                                .OrderBy(p => p.Id)
-                                                .Skip((page - 1) * pageSize)
-                                                .Take(pageSize);
+            IEnumerable<Product> products = _productService.GetAll();
 
-            return View(products);
+            ProductsListViewModel productsListModel = new ProductsListViewModel
+            {
+                Products = products
+                           .OrderBy(p => p.Id)
+                           .Skip((page - 1) * pageSize)
+                           .Take(pageSize),
+                PagingInfo = new PagingInfo
+                {
+                    CurrentPage = page,
+                    ItemsPerPage = pageSize,
+                    TotalItems = products.Count()
+                }
+            };
+
+            return View(productsListModel);
         }
     }
 }
