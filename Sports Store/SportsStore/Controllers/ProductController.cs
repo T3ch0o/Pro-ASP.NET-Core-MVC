@@ -18,7 +18,7 @@
             _productService = productService;
         }
 
-        public ViewResult List(int page = 1)
+        public ViewResult List(string category, int page = 1)
         {
             const int pageSize = 4;
 
@@ -27,6 +27,7 @@
             ProductsListViewModel productsListModel = new ProductsListViewModel
             {
                 Products = products
+                           .Where(p => p == null || p.Category == category)
                            .OrderBy(p => p.Id)
                            .Skip((page - 1) * pageSize)
                            .Take(pageSize),
@@ -35,7 +36,8 @@
                     CurrentPage = page,
                     ItemsPerPage = pageSize,
                     TotalItems = products.Count()
-                }
+                },
+                CurrentCategory = category
             };
 
             return View(productsListModel);
