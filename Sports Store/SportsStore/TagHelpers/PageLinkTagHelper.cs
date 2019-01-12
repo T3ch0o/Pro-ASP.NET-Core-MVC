@@ -26,6 +26,14 @@
 
         public string PageAction { get; set; }
 
+        public bool PageClassesEnabled { get; set; } = false;
+
+        public string PageClass { get; set; }
+
+        public string PageClassNormal { get; set; }
+
+        public string PageClassSelected { get; set; }
+
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
             IUrlHelper urlHelper = _urlHelperFactory.GetUrlHelper(ViewContext);
@@ -36,6 +44,11 @@
             {
                 TagBuilder anchorTag = new TagBuilder("a");
                 anchorTag.Attributes["href"] = urlHelper.Action(PageAction, new { page });
+                if (PageClassesEnabled)
+                {
+                    anchorTag.AddCssClass(PageClass);
+                    anchorTag.AddCssClass(page == PageModel.CurrentPage ? PageClassSelected : PageClassNormal);
+                }
                 anchorTag.InnerHtml.Append(page.ToString());
 
                 divTag.InnerHtml.AppendHtml(anchorTag);
