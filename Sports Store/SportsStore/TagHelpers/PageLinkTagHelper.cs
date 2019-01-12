@@ -1,5 +1,7 @@
 ﻿namespace SportsStore.TagHelpers
 {
+    using System.Collections.Generic;
+
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.AspNetCore.Mvc.Routing;
@@ -26,6 +28,9 @@
 
         public string PageAction { get; set; }
 
+        [HtmlAttributeName(DictionaryAttributePrefix = "page-url-")]
+        public Dictionary<string, object> PageUrlValues { get; set; } = new Dictionary<string, object>();
+
         public bool PageClassesEnabled { get; set; } = false;
 
         public string PageClass { get; set; }
@@ -43,7 +48,8 @@
             for (int page = 1; page <= PageModel.TotalPages; page++)
             {
                 TagBuilder anchorTag = new TagBuilder("a");
-                anchorTag.Attributes["href"] = urlHelper.Action(PageAction, new { page });
+                PageUrlValues["page"] = page;
+                anchorTag.Attributes["href"] = urlHelper.Action(PageAction, PageUrlValues);
                 if (PageClassesEnabled)
                 {
                     anchorTag.AddCssClass(PageClass);
