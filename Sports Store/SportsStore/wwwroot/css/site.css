@@ -1,0 +1,8 @@
+﻿:root {
+  --main-color: #c02d5b; }
+
+.main-bg-color {
+  background-color: var(--main-color);
+  color: #fff !important; }
+
+/*# sourceMappingURL=data:application/json;base64,ewoJInZlcnNpb24iOiAzLAoJImZpbGUiOiAid3d3cm9vdC9jc3Mvc2l0ZS5jc3MiLAoJInNvdXJjZXMiOiBbCgkJInd3d3Jvb3QvY3NzL3NpdGUuc2NzcyIKCV0sCgkibmFtZXMiOiBbXSwKCSJtYXBwaW5ncyI6ICJBQUFBLEFBQUEsS0FBSyxDQUFDO0VBQ0YsWUFBWSxFQUFFLE9BQU8sR0FDeEI7O0FBRUQsQUFBQSxjQUFjLENBQUM7RUFDWCxnQkFBZ0IsRUFBRSxpQkFBaUI7RUFDbkMsS0FBSyxFQUFFLGVBQWUsR0FDekIiCn0= */
