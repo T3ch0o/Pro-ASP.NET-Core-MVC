@@ -4,10 +4,21 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Sports Store</title>
-</head>
+    <link rel="stylesheet" asp-href-include="~/lib/bootstrap/dist/css/*.min.css" asp-href-exclude="**/*-reboot*,**/*-grid*" />
+    <link rel="stylesheet" asp-href-include="~/lib/fontawesome/css/*.css" />
+    <link rel="stylesheet" asp-href-include="~/css/site.css"/>
+</head> 
 <body>
-    <div>
-        @RenderBody()
+    <div class="navbar navbar-inverse bg-inverse main-bg-color" role="navigation">
+        <a class="navbar-brand text-white font-weight-bold" href="#">SPORTS STORE</a>
+    </div>
+    <div class="row m-1 p-1">
+        <div id="categories" class="col-2">
+            Put something useful here later
+        </div>
+        <div class="col-10">
+            @RenderBody()
+        </div>
     </div>
 </body>
 </html>
