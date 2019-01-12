@@ -42,6 +42,16 @@
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
+                    name: "pagination",
+                    template: "Products/Page{page:int}",
+                    defaults: new
+                    {
+                        Controller = "Product",
+                        Action = "List",
+                        Page = 1
+                    });
+
+                routes.MapRoute(
                     name: "default",
                     template: "{controller=Product}/{action=List}/{id?}");
             });
