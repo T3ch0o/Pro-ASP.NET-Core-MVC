@@ -24,10 +24,14 @@
 
             IEnumerable<Product> products = _productService.GetAll();
 
+            if (category != null)
+            {
+               products = products.Where(p => p.Category == category);
+            }
+
             ProductsListViewModel productsListModel = new ProductsListViewModel
             {
                 Products = products
-                           .Where(p => p == null || p.Category == category)
                            .OrderBy(p => p.Id)
                            .Skip((page - 1) * pageSize)
                            .Take(pageSize),
