@@ -6,17 +6,17 @@
     <title>Sports Store</title>
     <link rel="stylesheet" asp-href-include="~/lib/bootstrap/dist/css/*.min.css" asp-href-exclude="**/*-reboot*,**/*-grid*" />
     <link rel="stylesheet" asp-href-include="~/lib/fontawesome/css/*.css" />
-    <link rel="stylesheet" asp-href-include="~/css/site.css"/>
+    <link rel="stylesheet" asp-href-include="~/css/*.min.css"/>
 </head> 
 <body>
     <div class="navbar navbar-inverse bg-inverse main-bg-color" role="navigation">
         <a class="navbar-brand text-white font-weight-bold" href="#">SPORTS STORE</a>
     </div>
-    <div class="row m-1 p-1">
-        <div id="categories" class="col-2">
-            Put something useful here later
+    <div class="row">
+        <div id="categories" class="col-2 main-bg-color reset-padding side-nav">
+            <vc:navigation-menu></vc:navigation-menu>
         </div>
-        <div class="col-10">
+        <div class="col-9 p-1">
             @RenderBody()
         </div>
     </div>
