@@ -1,8 +1,39 @@
 ﻿:root {
-    --main-color: #c02d5b;
+    --main-color: rgb(24, 24, 32);
+}
+
+body {
+    background: rgb(29, 33, 45);
 }
 
 .main-bg-color {
     background-color: var(--main-color);
     color: #fff !important;
+}
+
+.nav-link {
+    margin: 5px;
+    text-decoration: none;
+    text-align: center;
+    color: inherit;
+    border-bottom: 1px solid rgba(0,0,0,.4);
+}
+
+.nav-link:hover {
+    background: rgba(0,0,0,.125);
+    color: inherit;
+    border-bottom: 1px solid rgba(0,0,0, 1);
+}
+
+.reset-padding {
+    padding: 0 !important;
+}
+
+.side-nav {
+    height: 1320px;
+}
+
+.card {
+    background-color: rgba(255, 255, 255, .2) !important;
+    color: #fff;
 }
