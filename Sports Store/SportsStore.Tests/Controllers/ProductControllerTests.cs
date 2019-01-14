@@ -1,8 +1,10 @@
 ﻿namespace SportsStore.Tests.Controllers
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
 
+    using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.ViewComponents;
 
     using Moq;
@@ -97,25 +99,39 @@
         }
 
         [Fact]
-        public void CanSelectCategories()
+        public void GenerateCategorySpecificProductCount()
         {
             // Arrange
+            // - create the mock repository
             Mock<IProductService> mock = new Mock<IProductService>();
             mock.Setup(m => m.GetAll()).Returns((new[]
             {
-                new Product { Id = 1, Name = "P1", Category = "Apples" },
-                new Product { Id = 2, Name = "P2", Category = "Apples" },
-                new Product { Id = 3, Name = "P3", Category = "Plums" },
-                new Product { Id = 4, Name = "P4", Category = "Oranges" },
+                new Product { Id = 1, Name = "P1", Category = "Cat1" },
+                new Product { Id = 2, Name = "P2", Category = "Cat2" },
+                new Product { Id = 3, Name = "P3", Category = "Cat1" },
+                new Product { Id = 4, Name = "P4", Category = "Cat2" },
+                new Product { Id = 5, Name = "P5", Category = "Cat3" }
             }).AsQueryable());
 
-            NavigationMenuViewComponent target = new NavigationMenuViewComponent(mock.Object);
+            // Arrange - create a controller and make the page size 3 items
+            ProductController controller = new ProductController(mock.Object);
 
-            // Act = get the set of categories
-            string[] results = ((IEnumerable<string>)((ViewViewComponentResult)target.Invoke()).ViewData.Model).ToArray();
+            ProductsListViewModel GetModel(ViewResult result)
+            {
+                return result?.ViewData?.Model as ProductsListViewModel;
+            }
+
+            // Action
+            int? result1 = GetModel(controller.List("Cat1"))?.PagingInfo.TotalItems;
+            int? result2 = GetModel(controller.List("Cat2"))?.PagingInfo.TotalItems;
+            int? result3 = GetModel(controller.List("Cat3"))?.PagingInfo.TotalItems;
+            int? resultAll = GetModel(controller.List(null))?.PagingInfo.TotalItems;
 
             // Assert
-            Assert.True(new[] { "Apples", "Oranges", "Plums" }.SequenceEqual(results));
+            Assert.Equal(2, result1);
+            Assert.Equal(2, result2);
+            Assert.Equal(1, result3);
+            Assert.Equal(5, resultAll);
         }
     }
 }
