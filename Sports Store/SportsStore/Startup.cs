@@ -2,12 +2,14 @@
 {
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
 
     using SportsStore.Data;
     using SportsStore.Middlewares;
+    using SportsStore.Models;
     using SportsStore.Services;
     using SportsStore.Services.Interfaces;
 
@@ -26,8 +28,13 @@
                 options.UseNpgsql(_configuration["Data:SportStore:ConnectionString"]));
 
             services.AddTransient<IProductService, ProductService>();
+            services.AddScoped<Cart>(SessionCart.Make);
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddMvc();
+
+            services.AddMemoryCache();
+            services.AddSession();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -39,6 +46,8 @@
 
             app.UseStatusCodePages();
             app.UseStaticFiles();
+            app.UseSession();
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
@@ -63,16 +72,6 @@
                 routes.MapRoute(
                     name: null,
                     template: "{category}",
-                    defaults: new
-                    {
-                        controller = "Product",
-                        action = "List",
-                        page = 1
-                    });
-
-                routes.MapRoute(
-                    name: null,
-                    template: "",
                     defaults: new
                     {
                         controller = "Product",
