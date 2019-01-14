@@ -1,9 +1,13 @@
 ﻿namespace SportsStore.Tests.Controllers
 {
+    using System.Collections.Generic;
     using System.Linq;
+
+    using Microsoft.AspNetCore.Mvc.ViewComponents;
 
     using Moq;
 
+    using SportsStore.Components;
     using SportsStore.Controllers;
     using SportsStore.Models;
     using SportsStore.Models.ViewModels;
@@ -90,6 +94,28 @@
             Assert.Equal(2, result.Length);
             Assert.True(result[0].Name == "P2" && result[0].Category == "Cat2");
             Assert.True(result[1].Name == "P4" && result[1].Category == "Cat2");
+        }
+
+        [Fact]
+        public void CanSelectCategories()
+        {
+            // Arrange
+            Mock<IProductService> mock = new Mock<IProductService>();
+            mock.Setup(m => m.GetAll()).Returns((new[]
+            {
+                new Product { Id = 1, Name = "P1", Category = "Apples" },
+                new Product { Id = 2, Name = "P2", Category = "Apples" },
+                new Product { Id = 3, Name = "P3", Category = "Plums" },
+                new Product { Id = 4, Name = "P4", Category = "Oranges" },
+            }).AsQueryable());
+
+            NavigationMenuViewComponent target = new NavigationMenuViewComponent(mock.Object);
+
+            // Act = get the set of categories
+            string[] results = ((IEnumerable<string>)((ViewViewComponentResult)target.Invoke()).ViewData.Model).ToArray();
+
+            // Assert
+            Assert.True(new[] { "Apples", "Oranges", "Plums" }.SequenceEqual(results));
         }
     }
 }
