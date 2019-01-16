@@ -6,7 +6,9 @@
     {
         public static string PathAndQuery(this HttpRequest request)
         {
-            return request.QueryString.HasValue ? string.Concat(request.Path, request.QueryString) : request.Path.ToString();
+            string queryString = request.QueryString.ToString();
+
+            return request.QueryString.HasValue ? queryString.Substring(11) : request.Path.ToString();
         }
     }
 }
