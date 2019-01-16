@@ -28,6 +28,7 @@
                 options.UseNpgsql(_configuration["Data:SportStore:ConnectionString"]));
 
             services.AddTransient<IProductService, ProductService>();
+            services.AddTransient<IOrderService, OrderService>();
             services.AddScoped<Cart>(SessionCart.Make);
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
