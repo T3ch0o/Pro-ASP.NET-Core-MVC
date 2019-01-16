@@ -14,6 +14,12 @@
 
         private readonly Cart _cart;
 
+        public CartController(IProductService productService, Cart cart)
+        {
+            _productService = productService;
+            _cart = cart;
+        }
+
         public IActionResult Index(string returnUrl)
         {
             return View(new CartIndexViewModel
@@ -22,12 +28,6 @@
                 ReturnUrl = returnUrl,
                 HasItems = _cart.CartLines.Any()
             });
-        }
-
-        public CartController(IProductService productService, Cart cart)
-        {
-            _productService = productService;
-            _cart = cart;
         }
 
         public RedirectToActionResult AddToCart(int productId, string returnUrl)
