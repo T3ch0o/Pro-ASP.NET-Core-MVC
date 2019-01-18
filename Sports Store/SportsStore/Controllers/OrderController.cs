@@ -5,7 +5,6 @@
     using Microsoft.AspNetCore.Mvc;
 
     using SportsStore.Models;
-    using SportsStore.Models.ViewModels;
     using SportsStore.Services.Interfaces;
 
     public class OrderController : Controller
@@ -48,6 +47,6 @@
         {
             _cart.Clear();
             return View();
-        }
+        }   
     }
 }
