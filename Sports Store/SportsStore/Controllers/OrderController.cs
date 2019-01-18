@@ -27,11 +27,6 @@
         [HttpPost]
         public IActionResult Checkout(Order order)
         {
-            if (!_cart.CartLines.Any())
-            {
-                ModelState.AddModelError("", "Sorry, your cart is empty!");
-            }
-
             if (ModelState.IsValid)
             {
                 order.CartLines = _cart.CartLines.ToArray();
@@ -47,6 +42,6 @@
         {
             _cart.Clear();
             return View();
-        }   
+        }
     }
 }
