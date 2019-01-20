@@ -51,7 +51,7 @@
                 _cart.RemoveLine(product);
             }
 
-            return RedirectToAction("Index", new { ReturnUrl = returnUrl });
+            return RedirectToAction("Index", new { returnUrl });
         }
     }
 }
