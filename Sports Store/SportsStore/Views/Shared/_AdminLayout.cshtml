@@ -1,0 +1,14 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width"/>
+    <link rel="stylesheet" asp-href-include="~/lib/bootstrap/dist/css/*.min.css" asp-href-exclude="**/*-reboot*,**/*-grid*"/>
+    <link rel="stylesheet" asp-href-include="~/lib/fontawesome/css/*.min.css"/>
+    <link rel="stylesheet" asp-href-include="~/css/*.min.css"/>
+    <title>@ViewBag.Title</title>
+</head>
+<body class="mt-5 p-1 text-white container mx-auto">
+<div class="bg-info p-2 text-white"><h4>@ViewBag.Title</h4></div>
+@RenderBody()
+</body>
+</html>
