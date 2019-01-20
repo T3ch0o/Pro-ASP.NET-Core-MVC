@@ -33,5 +33,18 @@
 
             return View(product);
         }
+
+        [HttpPost]
+        public IActionResult Edit(Product product)
+        {
+            if (ModelState.IsValid)
+            {
+                _productService.SaveProduct(product);
+                TempData["message"] = $"{product.Name} has been saved";
+                return RedirectToAction("Index");
+            }
+
+            return View(product);
+        }
     }
 }
