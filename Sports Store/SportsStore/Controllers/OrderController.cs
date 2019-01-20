@@ -19,7 +19,26 @@
             _cart = cart;
         }
 
-        public IActionResult Checkout()
+        public ViewResult List()
+        {
+            return View(_orderService.GetAll().Where(o => !o.Shipped));
+        }
+
+        [HttpPost]
+        public IActionResult MarkShipped(int orderId)
+        {
+            Order order = _orderService.GetAll().FirstOrDefault(o => o.Id == orderId);
+
+            if (order != null)
+            {
+                order.Shipped = true;
+                _orderService.SaveOrder(order);
+            }
+
+            return RedirectToAction(nameof(List));
+        }
+
+        public ViewResult Checkout()
         {
             return View();
         }
