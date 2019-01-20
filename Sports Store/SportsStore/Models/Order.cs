@@ -10,6 +10,9 @@
         [BindNever]
         public ICollection<CartLine> CartLines { get; set; }
 
+        [BindNever]
+        public bool Shipped { get; set; }
+
         [Display(Name = "Name:")]
         [Required(ErrorMessage = "Please enter a name")]
         public string Name { get; set; }
