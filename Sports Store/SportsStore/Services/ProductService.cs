@@ -20,5 +20,27 @@
         {
             return _db.Products;
         }
+
+        public void SaveProduct(Product product)
+        {
+            if (product.Id == 0)
+            {
+                _db.Products.Add(product);
+            }
+            else
+            {
+                Product currentProduct = _db.Products.FirstOrDefault(p => p.Id == product.Id);
+
+                if (currentProduct != null)
+                {
+                    currentProduct.Name = product.Name;
+                    currentProduct.Description = product.Description;
+                    currentProduct.Price = product.Price;
+                    currentProduct.Category = product.Category;
+                }
+            }
+
+            _db.SaveChanges();
+        }
     }
 }

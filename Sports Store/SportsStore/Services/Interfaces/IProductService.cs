@@ -7,5 +7,7 @@
     public interface IProductService
     {
         IQueryable<Product> GetAll();
+
+        void SaveProduct(Product product);
     }
 }
