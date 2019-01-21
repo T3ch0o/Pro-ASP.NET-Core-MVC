@@ -21,6 +21,11 @@
             return View(_productService.GetAll().OrderBy(p => p.Id));
         }
 
+        public ViewResult Create()
+        {
+            return View("Edit", new Product());
+        }
+
         public IActionResult Edit(int productId)
         {
             Product product = _productService.GetAll().FirstOrDefault(p => p.Id == productId);
@@ -38,12 +43,26 @@
         {
             if (ModelState.IsValid)
             {
-                _productService.SaveProduct(product);
+                _productService.Save(product);
                 TempData["message"] = $"{product.Name} has been saved";
+
                 return RedirectToAction("Index");
             }
 
             return View(product);
+        }
+
+        [HttpPost]
+        public IActionResult Delete(int productId)
+        {
+            Product deletedProduct = _productService.Delete(productId);
+
+            if (deletedProduct != null)
+            {
+                TempData["message"] = $"{deletedProduct.Name} was deleted";
+            }
+
+            return RedirectToAction("Index");
         }
     }
 }
