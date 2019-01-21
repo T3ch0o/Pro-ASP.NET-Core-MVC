@@ -1,7 +1,6 @@
 ﻿namespace SportsStore.Controllers
 {
     using System.Linq;
-    using System.Runtime.InteropServices.WindowsRuntime;
 
     using Microsoft.AspNetCore.Mvc;
 
@@ -19,7 +18,7 @@
 
         public ViewResult Index()
         {
-            return View(_productService.GetAll());
+            return View(_productService.GetAll().OrderBy(p => p.Id));
         }
 
         public IActionResult Edit(int productId)
