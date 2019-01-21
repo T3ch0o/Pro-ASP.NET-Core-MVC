@@ -32,7 +32,7 @@
             if (order != null)
             {
                 order.Shipped = true;
-                _orderService.SaveOrder(order);
+                _orderService.Save(order);
             }
 
             return RedirectToAction(nameof(List));
@@ -49,7 +49,7 @@
             if (ModelState.IsValid)
             {
                 order.CartLines = _cart.CartLines.ToArray();
-                _orderService.SaveOrder(order);
+                _orderService.Save(order);
 
                 return RedirectToAction(nameof(Completed));
             }

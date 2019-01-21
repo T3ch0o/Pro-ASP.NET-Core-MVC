@@ -22,7 +22,7 @@
             return _db.Orders.Include(o => o.CartLines).ThenInclude(c => c.Product);
         }
 
-        public void SaveOrder(Order order)
+        public void Save(Order order)
         {
             _db.AttachRange(order.CartLines.Select(c => c.Product));
 
