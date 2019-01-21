@@ -21,7 +21,7 @@
             return _db.Products;
         }
 
-        public void SaveProduct(Product product)
+        public void Save(Product product)
         {
             if (product.Id == 0)
             {
@@ -41,6 +41,19 @@
             }
 
             _db.SaveChanges();
+        }
+
+        public Product Delete(int productId)
+        {
+            Product targetProduct = _db.Products.FirstOrDefault(p => p.Id == productId);
+
+            if (targetProduct != null)
+            {
+                _db.Products.Remove(targetProduct);
+                _db.SaveChanges();
+            }
+
+            return targetProduct;
         }
     }
 }

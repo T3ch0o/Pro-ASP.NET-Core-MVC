@@ -8,6 +8,8 @@
     {
         IQueryable<Product> GetAll();
 
-        void SaveProduct(Product product);
+        void Save(Product product);
+
+        Product Delete(int productId);
     }
 }
