@@ -4,6 +4,7 @@
     using System.Linq;
 
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
     using Moq;
 
@@ -86,6 +87,57 @@
 
             // Assert
             Assert.Null(result);
+        }
+
+        [Fact]
+        public void CanSaveValidChanges()
+        {
+            // Arrange - create mock repository
+            Mock<IProductService> mock = new Mock<IProductService>();
+
+            // Arrange - create mock temp data
+            Mock<ITempDataDictionary> tempData = new Mock<ITempDataDictionary>();
+
+            // Arrange - create the controller
+            AdminController controller = new AdminController(mock.Object) { TempData = tempData.Object };
+
+            // Arrange - create a product
+            Product product = new Product { Name = "Test" };
+
+            // Act - try to save the product
+            IActionResult result = controller.Edit(product);
+
+            // Assert - check that the repository was called
+            mock.Verify(m => m.SaveProduct(product));
+
+            // Assert - check the result type is a redirection
+            Assert.IsType<RedirectToActionResult>(result);
+            Assert.Equal("Index", (result as RedirectToActionResult)?.ActionName);
+        }
+
+        [Fact]
+        public void CannotSaveInvalidChanges()
+        {
+            // Arrange - create mock repository
+            Mock<IProductService> mock = new Mock<IProductService>();
+
+            // Arrange - create the controller
+            AdminController controller = new AdminController(mock.Object);
+
+            // Arrange - create a product
+            Product product = new Product { Name = "Test" };
+
+            // Arrange - add an error to the model state
+            controller.ModelState.AddModelError("error", "error");
+
+            // Act - try to save the product
+            IActionResult result = controller.Edit(product);
+
+            // Assert - check that the repository was not called
+            mock.Verify(m => m.SaveProduct(It.IsAny<Product>()), Times.Never());
+
+            // Assert - check the method result type
+            Assert.IsType<ViewResult>(result);
         }
 
         private T GetViewModel<T>(IActionResult result) where T : class
