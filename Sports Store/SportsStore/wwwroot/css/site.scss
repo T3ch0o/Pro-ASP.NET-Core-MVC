@@ -50,3 +50,8 @@ body {
     display: flex;
     justify-content: center;
 }
+
+.input-validation-error {
+    border-color: red;
+    background-color: #fee;
+}
