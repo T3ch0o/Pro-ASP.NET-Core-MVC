@@ -108,7 +108,7 @@
             IActionResult result = controller.Edit(product);
 
             // Assert - check that the repository was called
-            mock.Verify(m => m.SaveProduct(product));
+            mock.Verify(m => m.Save(product));
 
             // Assert - check the result type is a redirection
             Assert.IsType<RedirectToActionResult>(result);
@@ -134,10 +134,36 @@
             IActionResult result = controller.Edit(product);
 
             // Assert - check that the repository was not called
-            mock.Verify(m => m.SaveProduct(It.IsAny<Product>()), Times.Never());
+            mock.Verify(m => m.Save(It.IsAny<Product>()), Times.Never());
 
             // Assert - check the method result type
             Assert.IsType<ViewResult>(result);
+        }
+
+        [Fact]
+        public void CanDeleteValidProducts()
+        {
+            // Arrange - create a Product
+            Product product = new Product { Id = 2, Name = "Test" };
+
+            // Arrange - create the mock repository
+            Mock<IProductService> mock = new Mock<IProductService>();
+            mock.Setup(m => m.GetAll()).Returns(new[]
+            {
+                new Product { Id = 1, Name = "P1" },
+                product,
+                new Product { Id = 3, Name = "P3" },
+            }.AsQueryable());
+
+            // Arrange - create the controller
+            AdminController controller = new AdminController(mock.Object);
+
+            // Act - delete the product
+            controller.Delete(product.Id);
+
+            // Assert - ensure that the repository delete method was
+            // called with the correct Product
+            mock.Verify(m => m.Delete(product.Id));
         }
 
         private T GetViewModel<T>(IActionResult result) where T : class
