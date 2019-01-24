@@ -8,7 +8,16 @@
     <title>@ViewBag.Title</title>
 </head>
 <body class="mt-5 p-1 text-white container mx-auto">
-    <div class="bg-info p-2 text-white"><h4>@ViewBag.Title</h4></div>
+    <div class="bg-info p-2 text-white d-flex">
+        <h4>@ViewBag.Title</h4>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <div class="ml-auto mr-5">
+                <a class="btn btn-sm btn-secondary"
+                   asp-action="Logout" asp-controller="Account">Log Out</a>
+            </div>
+        }
+    </div>
     @if (TempData["message"] != null)
     {
         <div class="alert alert-success mt-1">@TempData["message"]</div>
