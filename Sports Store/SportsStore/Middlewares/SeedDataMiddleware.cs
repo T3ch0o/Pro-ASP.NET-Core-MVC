@@ -3,6 +3,7 @@
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore.Internal;
 
     using SportsStore.Data;
@@ -17,14 +18,26 @@
             _next = next;
         }
 
-        public async Task InvokeAsync(HttpContext context, SportsStoreDbContext db)
+        public async Task InvokeAsync(HttpContext context, SportsStoreDbContext db, UserManager<IdentityUser> userManager)
         {
+            if (!db.Users.Any())
+            {
+                await SeedUser(userManager);
+            }
+
             if (!db.Products.Any())
             {
                 await SeedProducts(db);
             }
 
             await _next(context);
+        }
+
+        private async Task SeedUser(UserManager<IdentityUser> userManager)
+        {
+            IdentityUser user = new IdentityUser("Admin");
+            const string password = "Secret123$";
+            await userManager.CreateAsync(user, password);
         }
 
         private async Task SeedProducts(SportsStoreDbContext db)
