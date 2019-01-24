@@ -3,6 +3,7 @@
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
@@ -27,6 +28,10 @@
             services.AddDbContext<SportsStoreDbContext>(options =>
                 options.UseNpgsql(_configuration["Data:SportStore:ConnectionString"]));
 
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                    .AddEntityFrameworkStores<SportsStoreDbContext>()
+                    .AddDefaultTokenProviders();
+
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<IOrderService, OrderService>();
             services.AddScoped<Cart>(SessionCart.Make);
@@ -48,6 +53,8 @@
             app.UseStatusCodePages();
             app.UseStaticFiles();
             app.UseSession();
+            app.UseAuthentication();
+            app.UseSeedData();
 
             app.UseMvc(routes =>
             {
@@ -84,8 +91,6 @@
                     name: "default",
                     template: "{controller=Product}/{action=List}/{id?}");
             });
-
-            app.UseSeedData();
         }
     }
 }
