@@ -2,6 +2,7 @@
 {
     using System.Linq;
 
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     using SportsStore.Models;
@@ -19,12 +20,14 @@
             _cart = cart;
         }
 
+        [Authorize]
         public ViewResult List()
         {
             return View(_orderService.GetAll().Where(o => !o.Shipped));
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult MarkShipped(int orderId)
         {
             Order order = _orderService.GetAll().FirstOrDefault(o => o.Id == orderId);
