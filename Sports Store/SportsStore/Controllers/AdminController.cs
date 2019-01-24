@@ -2,11 +2,13 @@
 {
     using System.Linq;
 
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     using SportsStore.Models;
     using SportsStore.Services.Interfaces;
 
+    [Authorize]
     public class AdminController : Controller
     {
         private readonly IProductService _productService;
