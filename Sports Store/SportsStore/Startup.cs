@@ -8,11 +8,11 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
 
-    using SportsStore.Data;
-    using SportsStore.Middlewares;
-    using SportsStore.Models;
-    using SportsStore.Services;
-    using SportsStore.Services.Interfaces;
+    using Data;
+    using Middlewares;
+    using Models;
+    using Services;
+    using Services.Interfaces;
 
     public class Startup
     {
