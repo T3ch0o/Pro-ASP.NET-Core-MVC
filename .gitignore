@@ -270,3 +270,4 @@ lib/
 **/Data/Migrations
 **/Razor
 **/WorkingWithVisualStudio
+*.pubxml
