@@ -26,7 +26,7 @@
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<SportsStoreDbContext>(options =>
-                options.UseNpgsql(_configuration["Data:SportStore:ConnectionString"]));
+                options.UseSqlServer(_configuration["Data:SportStore:AzureConnectionString"]));
 
             services.AddIdentity<IdentityUser, IdentityRole>()
                     .AddEntityFrameworkStores<SportsStoreDbContext>()
@@ -48,6 +48,11 @@
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseStatusCodePages();
+            }
+            else
+            {
+                app.UseExceptionHandler("/Error/NotFound");
             }
 
             app.UseStatusCodePages();
